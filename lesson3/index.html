@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Queue System</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 350px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .role {
+        font-size: 14px;
+        color: gray;
+        margin-bottom: 20px;
+    }
+
+    .ticket {
+        background: #f1f1f1;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .ticket h2 {
+        color: #4facfe;
+    }
+
+    .wait-time {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff4d4d;
+        margin: 15px 0;
+    }
+
+    button {
+        background: #4facfe;
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #007bff;
+    }
+
+    .footer {
+        margin-top: 15px;
+        font-size: 12px;
+        color: gray;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Smart Queue</h1>
+    <div class="role">Doctor / Bank Service</div>
+
+    <div class="ticket">
+        <p>Your Ticket Number</p>
+        <h2>#A23</h2>
+    </div>
+
+    <p>Estimated Waiting Time</p>
+    <div class="wait-time">15 Minutes</div>
+
+    <button onclick="refreshTime()">Refresh Time</button>
+
+    <div class="footer">
+        Please be ready when your number is called
+    </div>
+</div>
+
+<script>
+function refreshTime() {
+    let time = Math.floor(Math.random() * 20) + 5;
+    document.querySelector(".wait-time").innerText = time + " Minutes";
+}
+</script>
+
+</body>
+</html>

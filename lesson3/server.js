@@ -9,7 +9,7 @@ const server=http.createServer((req, res )=>{
     })
     console.log(num)
      greet()
-     greet()
+      greet()
     res.setHeader('Content-Type','text/html');
     //Routing mechanism
     let path='./lesson3/'

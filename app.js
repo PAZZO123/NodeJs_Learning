@@ -1,24 +1,36 @@
 const express =require('express')
 const path=require('path')
+const morgan=require('morgan')
+const mongoose=require('mongoose')
 
 
 
 //express app
 const app =express()
+
+const dbURL = 'mongodb+srv://patrick:test123@cluster0.d4ltffq.mongodb.net/?appName=Cluster0'
+mongoose.connect(dbURL)
+.then(() => {
+    console.log('Connected successfully')
+    app.listen(3000)
+})
+.catch(err => console.log(err))
 //register view engine
 app.set('view engine','ejs')
 //listen requests
 app.listen(3000);
 
 //MIDDLE WARE that will run between request and response
-app.use((req, res,next)=>{
-    console.log('new request made.')
-    console.log('host:', req.hostname)
-    console.log('path:', req.path)
-    console.log('method:', req.method)
-    next()
+app.use(morgan('tiny'))
+app.use(express.static('public'))
+// app.use((req, res,next)=>{
+//     console.log('new request made.')
+//     console.log('host:', req.hostname)
+//     console.log('path:', req.path)
+//     console.log('method:', req.method)
+//     next()
 
-})
+// })
 
 app.get('/', (req,res)=>{
     //infer the content and set the content headers automtically and status code

@@ -8,17 +8,17 @@ const mongoose=require('mongoose')
 //express app
 const app =express()
 
-const dbURL = 'mongodb+srv://patrick:test123@cluster0.d4ltffq.mongodb.net/?appName=Cluster0'
+
 mongoose.connect(dbURL)
 .then(() => {
     console.log('Connected successfully')
-    app.listen(3000)
+    app.listen(5000)
 })
 .catch(err => console.log(err))
 //register view engine
 app.set('view engine','ejs')
 //listen requests
-app.listen(3000);
+app.listen(5000);
 
 //MIDDLE WARE that will run between request and response
 app.use(morgan('tiny'))

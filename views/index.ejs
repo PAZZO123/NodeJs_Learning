@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-   <%- include('./head.ejs') %>
+ <%- include('./partials/head.ejs') %>
 <body>
-   <%- include('./nav.ejs') %>
+    <% const name='Patrick' %>
+   
+        
+         <%- include('./partials/nav.ejs') %>
 
-    <div>
+    <div class="blogs content">
         <h2>All Blogs</h2>
-        <% if (blogs.length>4){%>
+        <% if(blogs.length>0){%>
             <% blogs.forEach(blog=>{%>
-            <h3><%=blog.title%></h3>
-            <p><%=blog.snippet%></
-                p><%})%>
-            <%} else{%>
-                <p> There are no brogs to display....</p>
-                <%} %>
+                <a class="single" href="/blogs/<%= blog._id %>">
+                <h3 class="title"><%=blog.title %></h3>
+                <p class="snippet"><%=blog.body %></p>
+                </a>
+            <%})%>
+
+       <% } else {%>
+        <p>There are no Blogs Yet................</p>
+        <%}%>
     </div>
-    
+     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

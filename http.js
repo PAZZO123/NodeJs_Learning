@@ -1,24 +1,40 @@
-const http=require('node:http')
+const http=require('http');
+const fs=require('fs')
+const _ =require('lodash')
+const server=http.createServer((req, res)=>{
+    const num=_.random(0,20)
+    console.log(num)
+    res.setHeader('Content-Type', 'text/html')
+    let path='./views/'
+    switch(req.url){
+        case '/':
+            path+='index1.html'
+            res.statusCode=200;
+            break;
+        case '/about':
+            path +='about.html'
+             res.statusCode=200;
+            break;
+        case '/about-us':
+            res.statusCode=301
+            res.setHeader('Location', '/about');
+            res.end();
+            break;
+        default: 
+            path +='404page.html'
+             res.statusCode=404;
+            break;
+    }
+   fs.readFile(path, (err, data)=>{
+    if(err){
+        console.log(err)
+        res.end()
+    } else{
+        //res.write(data)
+        res.end(data)
+    }
+   })
+    
+});
 
-const server=http.createServer((req,res)=>{
-const {method, url}=req;
-if(method==='GET' && url==='/'){
-    res.writeHead(200, {'Content-Type':'text/html'})
-    res.end('<html> Welcome Home</html>')
-}
-else if(method==='GET' && url==='/about'){
-    res.writeHead(200, {'Content-Type':'text/html'})
-    res.end('<htm> Hi Welcome to The About Page</htm>')
-}
-else if(method==='GET' && url==='/contact'){
-    res.writeHead(200, {'Content-Type':'text/html'})
-    res.end('<htm> Hi Welcome to The Contact</htm>')
-}
-else{
-    res.writeHead(404,{'Content-Type':'text/html'})
-    res.end('<html> 404 Page Not Found </html>')
-}
-
-})
-
-server.listen(3000)
+server.listen(3000, 'localhost', ()=>{})

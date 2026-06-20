@@ -1,59 +1,54 @@
-const express =require('express')
-const path=require('path')
-const morgan=require('morgan')
+const express=require('express')
+const morgan =require('morgan')
 const mongoose=require('mongoose')
+const blogRoutes=require('./routes/blogRoutes')
+const app=express()
+app.set('view engine', 'ejs')
 
-
-
-//express app
-const app =express()
-
-
+//database connection
+const dbURL = 'mongodb+srv://patrick:ijpazzo@cluster0.d4ltffq.mongodb.net/node-tuts?retryWrites=true&w=majority&appName=Cluster0';
 mongoose.connect(dbURL)
-.then(() => {
-    console.log('Connected successfully')
-    app.listen(5000)
-})
-.catch(err => console.log(err))
-//register view engine
-app.set('view engine','ejs')
-//listen requests
-app.listen(5000);
+.then((res)=>app.listen(3000))
+.catch((err)=>console(err))
 
-//MIDDLE WARE that will run between request and response
-app.use(morgan('tiny'))
+
+
+//Middleware
+
+
 app.use(express.static('public'))
-// app.use((req, res,next)=>{
-//     console.log('new request made.')
-//     console.log('host:', req.hostname)
-//     console.log('path:', req.path)
-//     console.log('method:', req.method)
-//     next()
+app.use(express.urlencoded({urlencoded: true }))
 
+app.use(morgan('dev'))
+
+//mongoose and mongo sandbox
+// app.get('/add-blog',(req, res)=>{
+//     const blog =new Blog({
+//         title:'new Blog',
+//         snippet:'about my new blog',
+//         body:'more about my new blog'
+//     });
+//     blog.save()
+//     .then((result)=> res.send(result))
+//     .catch((err)=>console.log(err))
+// } )
+// //getting all blogs
+// app.get('/all-blogs', (req, res)=>{
+//     Blog.find()
+//     .then((result)=>res.send(result))
+//     .catch((err)=>console.log(err))
+// })
+// //getting single blog
+// app.get('/single-blog', (req, res)=>{
+//     Blog.findById('6a035b45eeb4f68614cc53f1')
+//     .then((result)=>res.send(result))
+//     .catch((err)=>console.log(err))
 // })
 
-app.get('/', (req,res)=>{
-    //infer the content and set the content headers automtically and status code
-    //res.send('<p> Hello from Express</p>')
-    const blogs=[
-        {title:'Patty finds eggs', snippet:'do not move anywhere'},
-        {title:'Gad founded some', snippet:"do not try to falsfy them."},
-        {title:'As cold as it is', snippet:"I know what you are thinnking"}
-    ]
-    
-    res.render('index',{title:'Home',blogs:blogs})
-    //sendFile(path.join(__dirname,'lesson3','index.html'))
-})
-app.get('/about', (req,res)=>{
-    //res.send('<p> Hello from Express This is about page!</p>')
-    //res.sendFile("./lesson3/about.html",{root:__dirname})
-    res.render('about',{title:'Abaut'})
-    //sendFile(path.join(__dirname,'lesson3','about.html'))
-})
-app.get('/blogs/create', (req,res)=>{
-    res.render('create',{title:'Create'})
-})
-//.use to create middleware and this is the 404 page
+app.use( blogRoutes)
+
+//404  page
 app.use((req, res)=>{
-    res.status(404).render('404page',{title:'404'})
+    res.render('404page',{title:'Page Not Found'})
 })
+

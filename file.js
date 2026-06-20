@@ -1,28 +1,40 @@
 const fs=require('fs')
 //readfile
-fs.readFile('./docs/blogs.txt', (error,data)=>{
- error?console.log(error):console.log(data.toString())
+fs.readFile('./docs/blogs1.txt', (err, data)=>{
+    if(err){
+        console.log(err)
+    }
+    console.log(data.toString())
 })
+
 //writting file
-fs.writeFile("./docs/blogs1.txt","Let us do it again and again .",()=>{
-    console.log('it is written as it was supposed to be.')
+fs.writeFile('./docs/blogs1.txt',"Hello , Justine", ()=>{
+    console.log('File was written')
 })
 
 //dierectories
 if(!fs.existsSync('./assets')){
-fs.mkdir("./assets",(err)=>{
-    err?console.log(err):console.log("Directory was successfully created.")
+    fs.mkdir('./assets',(err)=>{
+    if(err){
+        console.log(err)
+    }else{
+    console.log('Folder was created')}2
 })
-}
-else{
+
+}else{
     fs.rmdir('./assets', (err)=>{
-        err?console.log(err):console.log("deleted")
+        if(!err){
+            console.log('Folder Deleted')
+        }
     })
 }
 
 //deleting files
-if(fs.existsSync('./docs/blogs.txt')){
-    fs.unlink('./docs/blogs.txt',(err)=>{
-        err?console.log(err):console.log("Deleted successfully.")
+if(fs.existsSync('./docs/delete.txt')){
+    fs.unlink('./docs/delete.txt' , (err)=>{
+    if(err){
+        console.log(err)
+    }
+    console.log('File was deleted successfully')
     })
 }

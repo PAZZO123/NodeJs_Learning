@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page not found</title>
-</head>
+ <%- include('./partials/head.ejs') %>
 <body>
-     <%- include('./nav.ejs') %>
-    <h1>404-Page Not Found</h1>
-    <h2> Please Go back to homepage you the page you want to visit is not available.</h2>
-    <a href="/"> Go back Home</a>
+    
+   <%- include('./partials/nav.ejs') %>
+    <div class="not-found content">
+        <h2>OOPS, Page not Found :() </h2>
+    </div>
+      <%- include('./partials/footer.ejs') %>
 </body>
 </html>

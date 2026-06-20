@@ -6,7 +6,7 @@ const app=express()
 app.set('view engine', 'ejs')
 
 //database connection
-const dbURL = 'mongodb+srv://patrick:ijpazzo@cluster0.d4ltffq.mongodb.net/node-tuts?retryWrites=true&w=majority&appName=Cluster0';
+
 mongoose.connect(dbURL)
 .then((res)=>app.listen(3000))
 .catch((err)=>console(err))
